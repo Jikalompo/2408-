@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="ISSAAD BADR">
+    <meta name="description" content="just a prototype">
+    <link rel="stylesheet" href="style.css">
+    <title>2408</title>
+</head>
+<body>
+    
+    <select id="theme-selector">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+        <option value="spring">Spring</option>
+    </select>
+
+    
+    <div id="spline-container">
+        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.79/build/spline-viewer.js" class="background"></script>
+        <spline-viewer id="spline-scene" url=""></spline-viewer>
+    </div>
+
+    
+    <script>
+        const themeSelector = document.getElementById('theme-selector');
+        const splineContainer = document.getElementById('spline-container');
+        const body = document.body;
+
+        
+        const scenes = {
+            dark: 'https://prod.spline.design/43aFu6Z7Ph6Cz2bR/scene.splinecode', 
+            light: 'https://prod.spline.design/Ke966tc2dijN3arF/scene.splinecode', 
+            spring: 'https://prod.spline.design/6pkZ-YhcvO44EA12/scene.splinecode' 
+        };
+
+        
+        function loadScene(url, theme) {
+           
+            splineContainer.innerHTML = '';
+
+            
+            const newSplineViewer = document.createElement('spline-viewer');
+            newSplineViewer.setAttribute('url', url);
+
+           
+            splineContainer.appendChild(newSplineViewer);
+
+            
+            if (theme === 'dark') {
+                body.style.backgroundColor = '#000000'; 
+            } else {
+                body.style.backgroundColor = '#ffffff'; 
+            }
+        }
+
+        
+        themeSelector.addEventListener('change', (event) => {
+            const selectedTheme = event.target.value;
+            loadScene(scenes[selectedTheme], selectedTheme);
+        });
+
+        
+        loadScene(scenes.light, 'light');
+        themeSelector.value = 'light'; 
+    </script>
+</body>
+</html>
